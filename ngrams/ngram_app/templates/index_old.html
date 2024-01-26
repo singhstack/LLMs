@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>William Blake Poem Generator</title>
+        <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">-->
+    </head>
+    <body>
+        <h1>Using n-grams to generate a william blake-like poem</h1>
+        <h2>A Simple Yet Effective Demonstration</h2>
+    </body>
+<body>
+    <form action="/generate" method="post">
+        <input type="text" name="initial_sequence" placeholder="initial_sequence">
+        <input type="number" name="n_grams" placeholder="n-grams">
+        <input type="number" name="sentence_length" placeholder="Poem Length (in words)">
+        <!-- Add more input fields as necessary -->
+        <button type="submit">Generate Sentence</button>
+    </form>
+</body>
+</html>
