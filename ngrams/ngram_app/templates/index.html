@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sequence Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-image: url('bgimg.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: #3e3e3e;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #614532; /* Dark brown color for a rustic look */
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        input, button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        button {
+            background-color: #8a5a44; /* Earthy tone */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #7d4e3b;
+        }
+        #result {
+            display: none;
+            transition: opacity 1s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+            padding: 20px;
+            border-radius: 8px;
+        }
+        #result.show {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generate a William Blake-like Poem</h1>
+    <h2>Rediscover the Beauty of Romanticism Poetry</h2>
+    <form id="sequenceForm">
+        <input type="text" name="initial_sequence" placeholder="few words">
+        <input type="number" name="n_grams" placeholder="n-grams">
+        <input type="number" name="sentence_length" placeholder="Poem Length (in words)">
+        <button type="submit">Generate Poem</button>
+    </form>
+    <div id="result">
+        <h2>Your Generated Poem:</h2>
+        <p id="sequenceOutput"></p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#sequenceForm').on('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                $.ajax({
+                    url: '/generate_sequence', // Your Flask endpoint
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#sequenceOutput').text(response.sequence); // Assuming 'response.sequence' is the output
+                        $('#result').addClass('show');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
